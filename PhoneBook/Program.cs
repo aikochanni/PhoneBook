@@ -1,6 +1,8 @@
 ﻿using PhoneBook;
 
 Book test = new Book();
+string inputName = "";
+string inputNumber = "";
 
 ConsoleKeyInfo userInput;
 
@@ -21,16 +23,25 @@ do
     switch (userInput.Key)
     {
         case ConsoleKey.D1:
-            test.AddContact();
+            Console.Write("Type name of contact: ");
+            inputName = Console.ReadLine();
+            Console.Write("Type number of contact [format: 000-000-000]: ");
+            inputNumber = Console.ReadLine();
+            test.AddContact(inputName, inputNumber);
             break;
         case ConsoleKey.D2:
-            test.RemoveContact();
+            Console.WriteLine("Which contact do you want to remove?");
+            Console.Write("Please type: ");
+            inputName = Console.ReadLine();
+            test.RemoveContact(inputName);
             break;
         case ConsoleKey.D3:
             test.ShowAllContacts();
             break;
         case ConsoleKey.D4:
-            test.ShowSelectContact();
+            Console.Write("Please enter the name of the contact to be selected: ");
+            inputName = Console.ReadLine();
+            test.ShowSelectContact(inputName);
             break;
         case ConsoleKey.E:
             return;

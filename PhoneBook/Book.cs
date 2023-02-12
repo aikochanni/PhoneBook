@@ -8,19 +8,11 @@ namespace PhoneBook
 
         public Book() { }
 
-        public void AddContact()
+        public void AddContact(string inputName, string inputNumber)
         {
             try
             {
                 Regex numberValidate = new Regex("^[0-9]{3}-[0-9]{3}-[0-9]{3}$");
-
-                Console.Write("Type name of contact: ");
-                
-                string inputName = Console.ReadLine();
-
-                Console.Write("Type number of contact [format: 000-000-000]: ");
-
-                string inputNumber = Console.ReadLine();
 
                 if (numberValidate.IsMatch(inputNumber))
                 {
@@ -38,15 +30,10 @@ namespace PhoneBook
             }
 
         }
-        public void RemoveContact()
+        public void RemoveContact(string inputName)
         {
             if (Contacts.Count > 0)
             {
-                Console.WriteLine("Which contact do you want to remove?");
-                Console.Write("Please type: ");
-
-                string inputName = Console.ReadLine();
-
                 Contacts.Remove(inputName);
 
                 Console.WriteLine($"Succesfully removed contact \"{inputName}\" :)");
@@ -72,12 +59,8 @@ namespace PhoneBook
                 Console.WriteLine("Your phonebook is empty ;< Are you alone buddy? ;w;");
             }
         }
-        public void ShowSelectContact()
+        public void ShowSelectContact(string inputName)
         {
-            Console.Write("Please enter the name of the contact to be selected: ");
-
-            string inputName = Console.ReadLine();
-
             if (!string.IsNullOrEmpty(inputName))
             {
                 Contact selectedContact = Contacts.FirstOrDefault(e => e.Key == inputName).Value;
