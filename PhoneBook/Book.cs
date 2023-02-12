@@ -16,7 +16,7 @@ namespace PhoneBook
 
                 if (numberValidate.IsMatch(inputNumber))
                 {
-                    Contacts.Add(inputName, new Contact(inputName, inputNumber));
+                    Contacts.Add(inputNumber, new Contact(inputName, inputNumber));
                     Console.WriteLine($"Added new contact!");
                 }
                 else
@@ -26,17 +26,17 @@ namespace PhoneBook
             }
             catch(System.ArgumentException)
             {
-                Console.WriteLine("Wrong! Contact with this name exists, cannot be added");
+                Console.WriteLine("Wrong! Contact with this number exists, cannot be added");
             }
 
         }
-        public void RemoveContact(string inputName)
+        public void RemoveContact(string inputNumber)
         {
             if (Contacts.Count > 0)
             {
-                Contacts.Remove(inputName);
+                Contacts.Remove(inputNumber);
 
-                Console.WriteLine($"Succesfully removed contact \"{inputName}\" :)");
+                Console.WriteLine($"Succesfully removed contact \"{inputNumber}\" :)");
             }
             else
             {
@@ -63,10 +63,13 @@ namespace PhoneBook
         {
             if (!string.IsNullOrEmpty(inputName))
             {
-                Contact selectedContact = Contacts.FirstOrDefault(e => e.Key == inputName).Value;
+                List<Contact> selectedContact = Contacts.Where(e => e.Value.GetName() == inputName).Select(e => e.Value).ToList();
 
-                Console.WriteLine("*** SELECTED CONTACT ***");
-                Console.WriteLine($"Name: {selectedContact.GetName()} | Number: {selectedContact.GetNumber()}");
+                Console.WriteLine("*** SELECTED CONTACTS ***");
+                foreach (Contact contact in selectedContact)
+                {
+                    Console.WriteLine($"Name: {contact.GetName()} | Number: {contact.GetNumber()}");
+                }
             }
             else
             {
